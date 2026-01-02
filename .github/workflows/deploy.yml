@@ -1,0 +1,23 @@
+name: Deploy wb-reviews-agent to VPS
+
+on:
+  push:
+    branches:
+      - main   # деплоим только, когда пушишь в main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Connect and deploy over SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            cd /srv/wb-reviews-agent
+            git pull
+            systemctl restart wb-reviews-agent
