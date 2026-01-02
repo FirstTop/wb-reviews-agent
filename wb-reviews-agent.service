@@ -1,0 +1,16 @@
+[Unit]
+Description=WB Reviews Agent Service
+After=network.target
+
+[Service]
+Type=simple
+User=YOUR_USERNAME
+WorkingDirectory=/home/YOUR_USERNAME/wb-reviews-agent
+Environment="PATH=/home/YOUR_USERNAME/wb-reviews-agent/venv/bin"
+ExecStart=/home/YOUR_USERNAME/wb-reviews-agent/venv/bin/python main.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+
